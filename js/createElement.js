@@ -30,7 +30,10 @@ export default {
                     object[key].forEach(element => {
                         this.element.append(element);
                     });
-                    break;    
+                    break; 
+                case 'src':
+                    this.element.src = object[key];
+                    break; 
                 default:
                     break;
             }
