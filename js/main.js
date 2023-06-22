@@ -80,14 +80,11 @@ var selectConver = new Choices(selectConvertCurrency, {
 });
 
 buttonReplaceCurrency.onclick = function () {
-    console.log(selectCurrent);
-    const firstOption = selectConver._presetItems[0];
-    const secondOption = selectCurrent._presetItems[0];
+    const firstOption = selectConvertCurrency.value;
+    const secondOption = selectCurrentCurrency.value;
+
     selectCurrent.setChoiceByValue(firstOption);
-    selectConver.setChoiceByValue(secondOption);
-    selectCurrent.clearChoices();
-    selectConver.clearChoices();
-    
+    selectConver.setChoiceByValue(secondOption);    
 }
 
 let currentBlockDisplay = createElement.new().assignProps({ tag: 'input', cls: ['currency-current__display'], }).appendTo(currentCurrency).getElement();
