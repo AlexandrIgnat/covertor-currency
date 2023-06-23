@@ -84,10 +84,19 @@ buttonReplaceCurrency.onclick = function () {
     const secondOption = selectCurrentCurrency.value;
 
     selectCurrent.setChoiceByValue(firstOption);
-    selectConver.setChoiceByValue(secondOption);    
+    selectConver.setChoiceByValue(secondOption);
+
+    convert(elementsArray);    
 }
 
-let currentBlockDisplay = createElement.new().assignProps({ tag: 'input', cls: ['currency-current__display'], }).appendTo(currentCurrency).getElement();
+let currentBlockDisplay = createElement.new()
+    .assignProps({ 
+        tag: 'input', 
+        cls: ['currency-current__display'], 
+    })
+    .appendTo(currentCurrency)
+    .getElement();
+    
 let convertBlockDisplay = createElement.new()
     .assignProps({
         tag: 'div',
