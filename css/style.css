@@ -142,7 +142,9 @@ header {
 
 /* main container */
 
-.main-container {}
+.main-container {
+    padding-bottom: 184px;
+}
 
 .main__list {
     list-style-type: none;
@@ -402,6 +404,7 @@ header {
 @media (max-width: 520px) {
     header {
         padding-top: 60px;
+        padding-bottom: 104px;
     }
 
     .heading {
@@ -416,9 +419,37 @@ header {
         width: 60px;
     }
 
+    .choices__list--single .choices__item {
+        padding-right: 43.5px;
+    }
+
     .choices[data-type*=select-one]:after {
-        right: 17px;
+        right: 24px;
         height: 6px;
         width: 12px;
+    }
+
+    .currency-arrows__image {
+        width: 74px;
+    }
+
+    .currency-current__display, .currency-convert__display {
+        font-size: 44px;
+        height: 145px;
+        padding: 53.5px 24px 47.5px;
+    }
+
+    .currency-arrows {
+        top: 249px;
+    }
+
+    .heading__currency-table {
+        line-height: 30px;
+    }
+
+    .second-main__item-row {
+        font-size: 16px;
+        padding-top: 19px;
+        padding-bottom: 19px;
     }
 }
