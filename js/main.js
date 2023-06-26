@@ -1,6 +1,6 @@
 import createElement from "./createElement.js";
 import convert from "./convert.js";
-import {getPost, createOptions} from "./helpers.js";
+import { getPost, createOptions } from "./helpers.js";
 import mainTable from "./mainTable.js";
 
 let currencyList = await getPost();
@@ -14,6 +14,9 @@ var currentCurrency = createElement.new().assignProps({ tag: 'div', cls: ['curre
 
 // блок выбора валюты
 createElement.new().assignProps({ tag: 'div', cls: ['currency'], child: [currentCurrency, arrowsCurrency, convertCurrency] }).appendTo(containerHeader);
+const arrowsImg = createElement.new().assignProps({ tag: 'img', cls: ['currency-arrows__image'] }).appendTo(arrowsCurrency).getElement();
+
+arrowsImg.src = 'images/arrows_1024.svg';
 
 var headingCurrentCurrency = createElement
     .new()
@@ -57,9 +60,9 @@ const currentDate = currencyList.Date.slice(0, 10).split('-').reverse().join('.'
 
 
 var headingCurrentDate = createElement
-.new()
-.assignProps({ tag: 'h2', cls: ['heading'], text: `Курсы валют на ${currentDate}`, })
-.appendTo(containerMain);
+    .new()
+    .assignProps({ tag: 'h2', cls: ['heading', 'heading__currency-table'], text: `Курсы валют на ${currentDate}`, })
+    .appendTo(containerMain);
 
 mainTable(containerMain);
 
@@ -79,24 +82,25 @@ var selectConver = new Choices(selectConvertCurrency, {
     itemSelectText: '',
 });
 
-buttonReplaceCurrency.onclick = function () {
+arrowsCurrency.onclick = function () {
     const firstOption = selectConvertCurrency.value;
     const secondOption = selectCurrentCurrency.value;
 
     selectCurrent.setChoiceByValue(firstOption);
     selectConver.setChoiceByValue(secondOption);
 
-    convert(elementsArray);    
+    convert(elementsArray);
+    resizeSelect();
 }
 
 let currentBlockDisplay = createElement.new()
-    .assignProps({ 
-        tag: 'input', 
-        cls: ['currency-current__display'], 
+    .assignProps({
+        tag: 'input',
+        cls: ['currency-current__display'],
     })
     .appendTo(currentCurrency)
     .getElement();
-    
+
 let convertBlockDisplay = createElement.new()
     .assignProps({
         tag: 'div',
@@ -109,6 +113,35 @@ currentBlockDisplay.setAttribute("type", 'number');
 
 const elementsArray = [selectCurrentCurrency, selectConvertCurrency, currencyList, currentBlockDisplay, convertBlockDisplay];
 
-selectCurrentCurrency.onchange = () => convert(elementsArray);
-selectConvertCurrency.onchange = () => convert(elementsArray);
+selectCurrentCurrency.onchange = () => {convert(elementsArray); resizeSelect()};
+selectConvertCurrency.onchange = () => {convert(elementsArray); resizeSelect()};
 currentBlockDisplay.oninput = () => convert(elementsArray);
+
+let text = [];
+
+function resizeSelect() {
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    let selectText = document.querySelectorAll('.choices__list--single .choices__item--selectable');
+    
+    if (windowWidth <= 520) {
+        selectText.forEach((e, key) => {
+            if (text.length != 2) text[key] = selectText[key].textContent;
+            if (text[key].slice(-3) != selectText[key].textContent.slice(-3)) text[key] = selectText[key].textContent; 
+            selectText[key].textContent = selectText[key].textContent.slice(-3);
+        })
+    } else {    
+        if (text.length) {
+            selectText.forEach((e, key) => {
+                selectText[key].textContent = text[key];
+                if (text.length == (key+1)) text = [];
+            })
+        }
+    }
+}
+
+resizeSelect(text);
+
+window.onresize = () => {
+    resizeSelect()
+}
