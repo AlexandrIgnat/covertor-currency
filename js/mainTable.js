@@ -23,7 +23,7 @@ export default (parent) => {
     for (let [item, i] of Object.entries(currencyList.Valute)) {
         const li = createElement.new().assignProps({tag: 'li', cls: ['main__item']}).appendTo(list).getElement();
         let flagsAndChar = createElement.new().assignProps({tag: 'div', cls: ['main__item-code']}).appendTo(li).getElement();
-        createElement.new().assignProps({tag: 'img', cls: ['flags',`${i.CharCode}`], src: `https://github.com/AlexandrIgnat/covertor-currency/blob/main/images/flags/${i.CharCode}.jpg`}).appendTo(flagsAndChar);
+        createElement.new().assignProps({tag: 'img', cls: ['flags',`${i.CharCode}`], src: `https://raw.githubusercontent.com/AlexandrIgnat/covertor-currency/main/images/flags/${i.CharCode}.jpg`}).appendTo(flagsAndChar);
         createElement.new().assignProps({tag: 'span', text: `${i.CharCode}`}).appendTo(flagsAndChar);
         createElement.new().assignProps({tag: 'span', cls: ['main__item-nominal', 'gray'], text: `${i.Nominal}`}).appendTo(li);
         createElement.new().assignProps({tag: 'span', cls: ['main__item-name', 'gray'], text: `${i.Name}`}).appendTo(li);
@@ -41,18 +41,6 @@ export default (parent) => {
 
     for (let [item, i] of Object.entries(currencyList.Valute)) {
         const li = createElement.new().assignProps({tag: 'li', cls: ['second-main__item']}).appendTo(secondList).getElement();
-
-        // let leftMainItem = createElement.new().assignProps({tag: 'div', cls: ['second-main__item-left']}).appendTo(li).getElement();
-
-        // let rightMainItem = createElement.new().assignProps({tag: 'div', cls: ['second-main__item-right']}).appendTo(li).getElement();
-
-        // let code = createElement.new().assignProps({tag: 'div', cls: ['code']}).appendTo(li).getElement();
-
-        // let nominal = createElement.new().assignProps({tag: 'div', cls: ['nominal']}).appendTo(li).getElement();        
-
-        // let name = createElement.new().assignProps({tag: 'div', cls: ['name']}).appendTo(li).getElement();        
-
-        // let value = createElement.new().assignProps({tag: 'div', cls: ['name']}).appendTo(li).getElement();    
         
         let divs = [];
 
@@ -71,7 +59,7 @@ export default (parent) => {
 
         let flagsAndChar = createElement.new().assignProps({tag: 'div', cls: ['main__item-code']}).appendTo(divs[0]).getElement();
 
-        createElement.new().assignProps({tag: 'img', cls: ['flags',`${i.CharCode}`], src: `https://github.com/AlexandrIgnat/covertor-currency/blob/main/images/flags/${i.CharCode}.jpg`}).appendTo(flagsAndChar);
+        createElement.new().assignProps({tag: 'img', cls: ['flags',`${i.CharCode}`], src: `https://raw.githubusercontent.com/AlexandrIgnat/covertor-currency/main/images/flags/${i.CharCode}.jpg`}).appendTo(flagsAndChar);
         
         createElement.new().assignProps({tag: 'span', text: `${i.CharCode}`}).appendTo(flagsAndChar);
         
