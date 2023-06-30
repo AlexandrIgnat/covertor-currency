@@ -8,7 +8,7 @@ let currencyList = await getPost();
 const containerHeader = document.querySelector('.header-container'),
     containerMain = document.querySelector('.main-container');
 
-var currentCurrency = createElement.new().assignProps({ tag: 'div', cls: ['currency-current'] }).getElement(),
+let currentCurrency = createElement.new().assignProps({ tag: 'div', cls: ['currency-current'] }).getElement(),
     convertCurrency = createElement.new().assignProps({ tag: 'div', cls: ['currency-convert'] }).getElement(),
     arrowsCurrency = createElement.new().assignProps({ tag: 'div', cls: ['currency-arrows'] }).getElement();
 
@@ -18,7 +18,7 @@ const arrowsImg = createElement.new().assignProps({ tag: 'img', cls: ['currency-
 
 arrowsImg.src = 'images/arrows_1024.svg';
 
-var headingCurrentCurrency = createElement
+let headingCurrentCurrency = createElement
     .new()
     .assignProps({
         tag: 'h2',
@@ -59,7 +59,7 @@ var headingCurrentCurrency = createElement
 const currentDate = currencyList.Date.slice(0, 10).split('-').reverse().join('.');
 
 
-var headingCurrentDate = createElement
+let headingCurrentDate = createElement
     .new()
     .assignProps({ tag: 'h2', cls: ['heading', 'heading__currency-table'], text: `Курсы валют на ${currentDate}`, })
     .appendTo(containerMain);
@@ -71,16 +71,43 @@ createElement.new().assignProps({ tag: 'option', text: 'Российский р�
 await createOptions(currencyList, createElement, selectCurrentCurrency, selectConvertCurrency);
 createElement.new().assignProps({ tag: 'option', text: 'Российский рубль RUR' }).appendTo(selectConvertCurrency).getElement().value = 'RUB';
 // первый селект
-var selectCurrent = new Choices(selectCurrentCurrency, {
+let selectCurrent = new Choices(selectCurrentCurrency, {
     itemSelectText: '',
     searchEnabled: false,
 });
 
 // второй селект
-var selectConver = new Choices(selectConvertCurrency, {
+let selectConver = new Choices(selectConvertCurrency, {
     searchEnabled: false,
     itemSelectText: '',
 });
+
+const arrayOfSelectsOptions = [selectCurrent.choiceList.element, selectConver.choiceList.element];
+
+function changeOptionVie(arrayOfSelects) {
+
+    arrayOfSelects.forEach(e => {
+        let listSelect = e.querySelectorAll('.choices__item');
+    
+        for (let element of listSelect) {
+            let str = element.textContent;
+            let name = str.substring(0, (str.length -3));
+            let strong = document.createElement('strong');
+            
+            str = str.slice(-3);
+                
+            strong.textContent = str;
+            
+            element.textContent = name;
+            
+            element.append(strong);
+
+            element.classList.add('flex', 'justify-bettwen');
+        }
+    })
+}
+
+changeOptionVie(arrayOfSelectsOptions);
 
 arrowsCurrency.onclick = function () {
     const firstOption = selectConvertCurrency.value;
