@@ -82,13 +82,22 @@ let selectConver = new Choices(selectConvertCurrency, {
     itemSelectText: '',
 });
 
-const arrayOfSelectsOptions = [selectCurrent.choiceList.element, selectConver.choiceList.element];
+const arrayOfSelectsOptions = [selectCurrent, selectConver];
 
+// функция для изменения стилей choices
 function changeOptionVie(arrayOfSelects) {
 
     arrayOfSelects.forEach(e => {
-        let listSelect = e.querySelectorAll('.choices__item');
-    
+        let listSelect = e.choiceList.element.querySelectorAll('.choices__item');
+        let btn = document.createElement('button');
+        btn.classList.add('btn-reset', 'choices__list-btn');
+        e.choiceList.element.append(btn);
+
+        btn.onclick = () => {
+            e.hideDropdown();
+            console.log(123);
+        }
+
         for (let element of listSelect) {
             let str = element.textContent;
             let name = str.substring(0, (str.length -3));
@@ -96,8 +105,7 @@ function changeOptionVie(arrayOfSelects) {
             
             str = str.slice(-3);
                 
-            strong.textContent = str;
-            
+            strong.textContent = str;  
             element.textContent = name;
             
             element.append(strong);
@@ -109,6 +117,7 @@ function changeOptionVie(arrayOfSelects) {
 
 changeOptionVie(arrayOfSelectsOptions);
 
+// отлавливаем смену валют сторонами
 arrowsCurrency.onclick = function () {
     const firstOption = selectConvertCurrency.value;
     const secondOption = selectCurrentCurrency.value;
@@ -163,12 +172,14 @@ function resizeSelect() {
                 selectText[key].textContent = text[key];
                 if (text.length == (key+1)) text = [];
             })
-        }
+        }   
     }
+    changeOptionVie(arrayOfSelectsOptions);
 }
 
 resizeSelect(text);
 
+// изменяем вид селектов при уменьшении ширины экрана
 window.onresize = () => {
     resizeSelect()
 }
